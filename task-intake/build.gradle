@@ -1,0 +1,45 @@
+buildscript {
+	ext {
+		springBootVersion = '1.5.7.RELEASE'
+		springCloudStreamVersion = '0.5.2.RELEASE'
+	}
+	repositories {
+		mavenCentral()
+	}
+	dependencies {
+		classpath("org.springframework.boot:spring-boot-gradle-plugin:${springBootVersion}")
+		classpath("io.spring.gradle:dependency-management-plugin:${springCloudStreamVersion}")
+	}
+}
+
+apply plugin: 'java'
+apply plugin: 'eclipse'
+apply plugin: 'org.springframework.boot'
+apply plugin: "io.spring.dependency-management"
+
+dependencyManagement {
+	imports {
+		mavenBom 'org.springframework.cloud:spring-cloud-stream-dependencies:Chelsea.SR2'
+	}
+}
+
+
+group = 'com.thoughtworks'
+version = '0.0.1-SNAPSHOT'
+sourceCompatibility = 1.8
+
+repositories {
+	mavenCentral()
+}
+
+
+dependencies {
+	compile('org.springframework.boot:spring-boot-starter-actuator')
+	compile('org.springframework.boot:spring-boot-starter-web')
+
+	compile('org.springframework.cloud:spring-cloud-stream')
+	compile('org.springframework.cloud:spring-cloud-starter-task:1.2.2.RELEASE')
+	compile('org.springframework.cloud:spring-cloud-starter-stream-rabbit')
+
+	testCompile('org.springframework.boot:spring-boot-starter-test')
+}
